@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.wuguishifu.plus-addressing</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>63A49E25-EEB5-4A94-98BD-013D211045CB</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CE78A907-21D8-482C-9772-B2590B14E4CE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CE78A907-21D8-482C-9772-B2590B14E4CE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>2442B2B0-4EDD-4953-A75A-670AC15AB19C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Bo Bramer</string>
+	<key>description</key>
+	<string>Create a plus address email</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Plus Addressing</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>set -euo pipefail
+
+# Alfred workflow variable passed as environment variable
+email="$email_base"
+
+if [[ -z "$email" ]]; then
+  echo "ERROR: email_base is not set in Alfred Workflow variables." &gt;&amp;2
+  exit 1
+fi
+
+# Timestamp YYYYMMDDhhmmss
+timestamp="$(date +"%Y%m%d%H%M%S")"
+
+# Split local and domain parts
+local_part="${email%@*}"
+domain_part="${email#*@}"
+
+# Output result to Alfred without trailing newline
+printf "%s+%s@%s" "$local_part" "$timestamp" "$domain_part"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CE78A907-21D8-482C-9772-B2590B14E4CE</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>+</string>
+				<key>subtext</key>
+				<string>Create a plus address for {var:email_base}</string>
+				<key>text</key>
+				<string>Plus Address</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>63A49E25-EEB5-4A94-98BD-013D211045CB</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>2442B2B0-4EDD-4953-A75A-670AC15AB19C</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>2442B2B0-4EDD-4953-A75A-670AC15AB19C</key>
+		<dict>
+			<key>xpos</key>
+			<real>640</real>
+			<key>ypos</key>
+			<real>255</real>
+		</dict>
+		<key>63A49E25-EEB5-4A94-98BD-013D211045CB</key>
+		<dict>
+			<key>xpos</key>
+			<real>210</real>
+			<key>ypos</key>
+			<real>255</real>
+		</dict>
+		<key>CE78A907-21D8-482C-9772-B2590B14E4CE</key>
+		<dict>
+			<key>xpos</key>
+			<real>425</real>
+			<key>ypos</key>
+			<real>255</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>bo@wuguishifu.dev</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>The base email. For example, bo@wuguishifu.dev</string>
+			<key>label</key>
+			<string>Email Base</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>email_base</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string></string>
+	<key>webaddress</key>
+	<string>https://github.com/wuguishifu/plus-addressing</string>
+</dict>
+</plist>
